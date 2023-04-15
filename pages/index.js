@@ -1,22 +1,51 @@
 import Head from "next/head";
-import Link from "next/link";
-import { gql } from "@apollo/client";
-
-import { getApolloClient } from "../lib/apollo-client";
-
+import Hero from "../components/Hero";
+import Navbar from "../components/Navbar";
+import Intro from "../components/general/Intro";
+import ContactButtons from "../components/general/ContactButtons";
 import styles from "../styles/Home.module.css";
+import { gql } from "@apollo/client";
+import { getApolloClient } from "../lib/apollo-client";
+import Router from "next/router";
+import nprogress from "nprogress";
 
-export default function Home({ page, posts }) {
-  const { title, description } = page;
+Router.events.on("routeChangeStart", (url) => {
+  nprogress.start();
+});
+
+Router.events.on("routeChangeComplete", (url) => {
+  nprogress.done(false);
+});
+
+export default function Home({ page }) {
+  // const { title, description } = page;
+  console.log("page is: ", page);
+
   return (
     <div className={styles.container}>
       <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
+        <title>{page.title}</title>
+        <meta name="description" content={page.description} />
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css"
+          integrity="sha512-42kB9yDlYiCEfx2xVwq0q7hT4uf26FUgSIZBK8uiaEnTdShXjwr8Ip1V4xGJMg3mHkUt9nNuTDxunHF0/EgxLQ=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
       </Head>
 
-      <main className={styles.main}>
+      <Hero>
+        <Navbar />
+        <Intro introText={page.translation.homePageFields.heroSectionTitle} />
+        <ContactButtons
+          whatsappText={page.translation.homePageFields.whatsappButtonText}
+          phoneText={page.translation.homePageFields.phoneButtonText}
+        />
+      </Hero>
+
+      {/* <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
 
         <p className={styles.description}>{description}</p>
@@ -54,7 +83,7 @@ export default function Home({ page, posts }) {
               </li>
             ))}
         </ul>
-      </main>
+      </main> */}
     </div>
   );
 }
@@ -66,51 +95,52 @@ export async function getStaticProps({ locale }) {
 
   const data = await apolloClient.query({
     query: gql`
-      query posts($language: LanguageCodeFilterEnum!) {
-        posts(where: { language: $language }) {
-          edges {
-            node {
-              id
-              excerpt
-              title
+      query PostBySlug($uri: String!, $language: LanguageCodeEnum!) {
+        pageBy(uri: $uri) {
+          translation(language: $language) {
+            id
+            slug
+            content
+            title
+            language {
+              locale
               slug
-              language {
-                code
-                locale
-              }
             }
+            homePageFields {
+              fieldGroupName
+              heroSectionTitle
+              phoneButtonText
+              whatsappButtonText
+            }
+          }
+          homePageFields {
+            fieldGroupName
+            heroSectionTitle
+            phoneButtonText
+            whatsappButtonText
           }
         }
         generalSettings {
           title
+          url
+          language
           description
         }
       }
     `,
     variables: {
       language,
+      uri: "/",
     },
   });
-
-  let posts = data?.data.posts.edges
-
-    .map(({ node }) => node)
-    .map((post) => {
-      return {
-        ...post,
-        language,
-        path: `/posts/${post.slug}`,
-      };
-    });
-
+  console.log("data is: ", data);
   const page = {
-    ...data?.data.generalSettings,
+    ...data?.data.pageBy,
   };
 
   return {
     props: {
       page,
-      posts,
     },
   };
 }

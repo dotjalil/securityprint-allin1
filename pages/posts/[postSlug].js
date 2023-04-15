@@ -44,6 +44,8 @@ export async function getStaticProps({ params, locale }) {
   const { postSlug } = params;
   const language = locale.toUpperCase();
 
+  console.log("language", language);
+
   const apolloClient = getApolloClient();
 
   const data = await apolloClient.query({
