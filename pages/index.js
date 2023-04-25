@@ -8,6 +8,8 @@ import { gql } from "@apollo/client";
 import { getApolloClient } from "../lib/apollo-client";
 import Router from "next/router";
 import nprogress from "nprogress";
+import SubBrands from "../components/SubBrands/SubBrands";
+import VideoIntro from "../components/VideoIntro";
 
 Router.events.on("routeChangeStart", (url) => {
   nprogress.start();
@@ -45,6 +47,17 @@ export default function Home({ page }) {
         />
       </Hero>
 
+      <SubBrands
+        title={page.translation.homePageFields.subBrandsTitle}
+        description={page.translation.homePageFields.subBrandsSection}
+        brands={page.subBrands.reverse()}
+        lang={page.translation.language.slug}
+      />
+      <VideoIntro
+        title={page.translation.homePageFields.videoSectionTitle}
+        description={page.translation.homePageFields.videoSectionDescription}
+        url={page.translation.homePageFields.videoSectionUrl}
+      />
       {/* <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
 
@@ -111,6 +124,26 @@ export async function getStaticProps({ locale }) {
               heroSectionTitle
               phoneButtonText
               whatsappButtonText
+              subBrandsSection
+              subBrandsTitle
+              initiativesSectionSubtitle
+              initiativesSectionTitle
+              partnersSectionSubtitle
+              partnersSectionTitle
+              photoSectionDescription
+              photoSectionLogoInDescription {
+                altText
+                mediaItemUrl
+              }
+              photoSectionMainPhoto {
+                altText
+                mediaItemUrl
+              }
+              photoSectionSubtitle
+              photoSectionTitle
+              videoSectionDescription
+              videoSectionTitle
+              videoSectionUrl
             }
           }
           homePageFields {
@@ -118,6 +151,26 @@ export async function getStaticProps({ locale }) {
             heroSectionTitle
             phoneButtonText
             whatsappButtonText
+            subBrandsSection
+            subBrandsTitle
+            initiativesSectionSubtitle
+            initiativesSectionTitle
+            partnersSectionSubtitle
+            partnersSectionTitle
+            photoSectionDescription
+            photoSectionLogoInDescription {
+              altText
+              mediaItemUrl
+            }
+            photoSectionMainPhoto {
+              altText
+              mediaItemUrl
+            }
+            photoSectionSubtitle
+            photoSectionTitle
+            videoSectionDescription
+            videoSectionTitle
+            videoSectionUrl
           }
         }
         generalSettings {
@@ -125,6 +178,27 @@ export async function getStaticProps({ locale }) {
           url
           language
           description
+        }
+        subBrands {
+          nodes {
+            content
+            subBrandFields {
+              gradient
+              logo {
+                altText
+                mediaItemUrl
+              }
+            }
+            tags {
+              nodes {
+                name
+                translations {
+                  name
+                }
+              }
+            }
+            title
+          }
         }
       }
     `,
@@ -136,6 +210,7 @@ export async function getStaticProps({ locale }) {
   console.log("data is: ", data);
   const page = {
     ...data?.data.pageBy,
+    subBrands: [...data?.data.subBrands.nodes],
   };
 
   return {

@@ -1,6 +1,6 @@
 const ContactButtons = (props) => {
   return (
-    <div className="flex justify-center items-start gap-[27px] mt-[105px]">
+    <div className="flex justify-center items-start gap-[27px] mt-[28px]">
       <div
         className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 w-[185px] gap-2.5 p-3 rounded-xl"
         style={{

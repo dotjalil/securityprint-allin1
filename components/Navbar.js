@@ -12,7 +12,7 @@ export default function Navbar() {
   const availableLocales = locales.filter((locale) => locale !== activeLocale);
 
   return (
-    <div className="container flex justify-between items-center mt-16">
+    <div className="container flex justify-between items-center mt-16 absolute top-0">
       <Link href="/">
         <Image
           alt="Logo arabic"
