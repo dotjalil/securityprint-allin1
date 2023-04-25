@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import Intro from "../components/general/Intro";
 import ContactButtons from "../components/general/ContactButtons";
+import PhotoSection from "../components/PhotoSection";
 import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
 import { getApolloClient } from "../lib/apollo-client";
@@ -10,6 +11,7 @@ import Router from "next/router";
 import nprogress from "nprogress";
 import SubBrands from "../components/SubBrands/SubBrands";
 import VideoIntro from "../components/VideoIntro";
+import Initiatives from "../components/Initiatives";
 
 Router.events.on("routeChangeStart", (url) => {
   nprogress.start();
@@ -57,6 +59,20 @@ export default function Home({ page }) {
         title={page.translation.homePageFields.videoSectionTitle}
         description={page.translation.homePageFields.videoSectionDescription}
         url={page.translation.homePageFields.videoSectionUrl}
+      />
+      <PhotoSection
+        title={page.translation.homePageFields.photoSectionTitle}
+        subtitle={page.translation.homePageFields.photoSectionSubtitle}
+        description={page.translation.homePageFields.photoSectionDescription}
+        mainPhoto={page.translation.homePageFields.photoSectionMainPhoto}
+        logoInDescription={
+          page.translation.homePageFields.photoSectionLogoInDescription
+        }
+      />
+      <Initiatives
+        title={page.translation.homePageFields.initiativesSectionTitle}
+        subtitle={page.translation.homePageFields.initiativesSectionSubtitle}
+        initiatives={page.initiatives}
       />
       {/* <main className={styles.main}>
         <h1 className={styles.title}>{title}</h1>
@@ -108,7 +124,11 @@ export async function getStaticProps({ locale }) {
 
   const data = await apolloClient.query({
     query: gql`
-      query PostBySlug($uri: String!, $language: LanguageCodeEnum!) {
+      query PostBySlug(
+        $uri: String!
+        $language: LanguageCodeEnum!
+        $language_filter_enum: LanguageCodeFilterEnum = ALL
+      ) {
         pageBy(uri: $uri) {
           translation(language: $language) {
             id
@@ -200,10 +220,28 @@ export async function getStaticProps({ locale }) {
             title
           }
         }
+        initiatives(where: { language: $language_filter_enum }) {
+          nodes {
+            content
+            title
+            featuredImage {
+              node {
+                altText
+                mediaItemUrl
+              }
+            }
+            tags {
+              nodes {
+                name
+              }
+            }
+          }
+        }
       }
     `,
     variables: {
       language,
+      language_filter_enum: language,
       uri: "/",
     },
   });
@@ -211,6 +249,7 @@ export async function getStaticProps({ locale }) {
   const page = {
     ...data?.data.pageBy,
     subBrands: [...data?.data.subBrands.nodes],
+    initiatives: [...data?.data.initiatives.nodes],
   };
 
   return {
