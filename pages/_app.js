@@ -32,6 +32,9 @@ function MyApp({ Component, pageProps }) {
         .ar-text {
           font-family: ${montserratArabic.style.fontFamily};
         }
+        .en-text {
+          font-family: ${montserrat.style.fontFamily};
+        }
       `}</style>
       <Component {...pageProps} />
     </>

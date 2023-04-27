@@ -12,6 +12,8 @@ import nprogress from "nprogress";
 import SubBrands from "../components/SubBrands/SubBrands";
 import VideoIntro from "../components/VideoIntro";
 import Initiatives from "../components/Initiatives";
+import Partners from "../components/Partners";
+import Footer from "../components/Footer";
 
 Router.events.on("routeChangeStart", (url) => {
   nprogress.start();
@@ -74,45 +76,12 @@ export default function Home({ page }) {
         subtitle={page.translation.homePageFields.initiativesSectionSubtitle}
         initiatives={page.initiatives}
       />
-      {/* <main className={styles.main}>
-        <h1 className={styles.title}>{title}</h1>
-
-        <p className={styles.description}>{description}</p>
-
-        <ul className={styles.grid}>
-          {posts &&
-            posts.length > 0 &&
-            posts.map((post) => {
-              console.log(post);
-              return (
-                <li key={post.slug} className={styles.card}>
-                  <Link href={post.path}>
-                    <a>
-                      <h3
-                        dangerouslySetInnerHTML={{
-                          __html: post.title,
-                        }}
-                      />
-                      <div
-                        className={styles.excerpt}
-                        dangerouslySetInnerHTML={{
-                          __html: post.excerpt,
-                        }}
-                      />
-                    </a>
-                  </Link>
-                </li>
-              );
-            })}
-
-          {!posts ||
-            (posts.length === 0 && (
-              <li>
-                <p>Oops, no posts found!</p>
-              </li>
-            ))}
-        </ul>
-      </main> */}
+      <Partners
+        title={page.translation.homePageFields.partnersSectionTitle}
+        subtitle={page.translation.homePageFields.partnersSectionSubtitle}
+        partners={page.partners}
+      />
+      <Footer />
     </div>
   );
 }
@@ -237,6 +206,17 @@ export async function getStaticProps({ locale }) {
             }
           }
         }
+        partners {
+          nodes {
+            featuredImage {
+              node {
+                mediaItemUrl
+                altText
+              }
+            }
+            id
+          }
+        }
       }
     `,
     variables: {
@@ -250,6 +230,7 @@ export async function getStaticProps({ locale }) {
     ...data?.data.pageBy,
     subBrands: [...data?.data.subBrands.nodes],
     initiatives: [...data?.data.initiatives.nodes],
+    partners: [...data?.data.partners.nodes],
   };
 
   return {
@@ -257,4 +238,47 @@ export async function getStaticProps({ locale }) {
       page,
     },
   };
+}
+
+{
+  /* displaying posts on the home page */
+  /* <main className={styles.main}>
+        <h1 className={styles.title}>{title}</h1>
+
+        <p className={styles.description}>{description}</p>
+
+        <ul className={styles.grid}>
+          {posts &&
+            posts.length > 0 &&
+            posts.map((post) => {
+              console.log(post);
+              return (
+                <li key={post.slug} className={styles.card}>
+                  <Link href={post.path}>
+                    <a>
+                      <h3
+                        dangerouslySetInnerHTML={{
+                          __html: post.title,
+                        }}
+                      />
+                      <div
+                        className={styles.excerpt}
+                        dangerouslySetInnerHTML={{
+                          __html: post.excerpt,
+                        }}
+                      />
+                    </a>
+                  </Link>
+                </li>
+              );
+            })}
+
+          {!posts ||
+            (posts.length === 0 && (
+              <li>
+                <p>Oops, no posts found!</p>
+              </li>
+            ))}
+        </ul>
+      </main> */
 }
