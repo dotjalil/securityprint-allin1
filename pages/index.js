@@ -1,3 +1,4 @@
+import { useEffect, useState, useRef } from "react";
 import Head from "next/head";
 import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
@@ -14,6 +15,8 @@ import VideoIntro from "../components/VideoIntro";
 import Initiatives from "../components/Initiatives";
 import Partners from "../components/Partners";
 import Footer from "../components/Footer";
+import Modal from "../components/Modal";
+import whatsappUrl from "../lib/whatsapp-url";
 
 Router.events.on("routeChangeStart", (url) => {
   nprogress.start();
@@ -24,8 +27,43 @@ Router.events.on("routeChangeComplete", (url) => {
 });
 
 export default function Home({ page }) {
+  const [whatsappUrl, setWhatsappUrl] = useState(null);
+  const [showBrandModal, setShowBrandModal] = useState(false);
+  const [modalData, setModalData] = useState(null);
+
   // const { title, description } = page;
-  console.log("page is: ", page);
+  // console.log("page is: ", page);
+
+  useEffect(() => {
+    console.log("effect started");
+    async function getWA() {
+      const response = await fetch(
+        "https://security-social-helpers.herokuapp.com/getShift",
+        {
+          method: "GET",
+          mode: "cors",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      const data = await response.json();
+      setWhatsappUrl(() =>
+        encodeURI(
+          `https://wa.me/${data.whatsapp}?backup=true&text=مرحبًا،+السلام+عليكم+ورحمة+الله+وبركاته`
+        )
+      );
+    }
+    getWA();
+  }, []);
+
+  function handleOpenPopup(brand) {
+    console.log("brand: ", brand);
+    setModalData(brand);
+    setShowBrandModal(true);
+  }
+
+  function closeBrandModalHandler() {
+    setShowBrandModal(false);
+  }
 
   return (
     <div className={styles.container}>
@@ -41,14 +79,21 @@ export default function Home({ page }) {
           referrerPolicy="no-referrer"
         />
       </Head>
-
+      <style jsx global>{`
+        body {
+          overflow: ${showBrandModal === true ? "hidden" : "auto"};
+        }
+      `}</style>
       <Hero>
         <Navbar />
         <Intro introText={page.translation.homePageFields.heroSectionTitle} />
-        <ContactButtons
-          whatsappText={page.translation.homePageFields.whatsappButtonText}
-          phoneText={page.translation.homePageFields.phoneButtonText}
-        />
+        {whatsappUrl && (
+          <ContactButtons
+            whatsappText={page.translation.homePageFields.whatsappButtonText}
+            whatsappUrl={whatsappUrl}
+            phoneText={page.translation.homePageFields.phoneButtonText}
+          />
+        )}
       </Hero>
 
       <SubBrands
@@ -56,6 +101,7 @@ export default function Home({ page }) {
         description={page.translation.homePageFields.subBrandsSection}
         brands={page.subBrands.reverse()}
         lang={page.translation.language.slug}
+        openPopup={handleOpenPopup}
       />
       <VideoIntro
         title={page.translation.homePageFields.videoSectionTitle}
@@ -81,7 +127,10 @@ export default function Home({ page }) {
         subtitle={page.translation.homePageFields.partnersSectionSubtitle}
         partners={page.partners}
       />
-      <Footer />
+      {whatsappUrl && <Footer whatsappUrl={whatsappUrl} />}
+      {showBrandModal && modalData && (
+        <Modal closeHandler={closeBrandModalHandler} brand={modalData} />
+      )}
     </div>
   );
 }
@@ -135,32 +184,6 @@ export async function getStaticProps({ locale }) {
               videoSectionUrl
             }
           }
-          homePageFields {
-            fieldGroupName
-            heroSectionTitle
-            phoneButtonText
-            whatsappButtonText
-            subBrandsSection
-            subBrandsTitle
-            initiativesSectionSubtitle
-            initiativesSectionTitle
-            partnersSectionSubtitle
-            partnersSectionTitle
-            photoSectionDescription
-            photoSectionLogoInDescription {
-              altText
-              mediaItemUrl
-            }
-            photoSectionMainPhoto {
-              altText
-              mediaItemUrl
-            }
-            photoSectionSubtitle
-            photoSectionTitle
-            videoSectionDescription
-            videoSectionTitle
-            videoSectionUrl
-          }
         }
         generalSettings {
           title
@@ -168,7 +191,7 @@ export async function getStaticProps({ locale }) {
           language
           description
         }
-        subBrands {
+        subBrands(where: { language: $language_filter_enum }) {
           nodes {
             content
             subBrandFields {
@@ -177,6 +200,12 @@ export async function getStaticProps({ locale }) {
                 altText
                 mediaItemUrl
               }
+              logoColored {
+                altText
+                mediaItemUrl
+              }
+              websiteUrl
+              description
             }
             tags {
               nodes {
@@ -187,6 +216,7 @@ export async function getStaticProps({ locale }) {
               }
             }
             title
+            excerpt
           }
         }
         initiatives(where: { language: $language_filter_enum }) {

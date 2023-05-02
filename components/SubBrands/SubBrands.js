@@ -10,6 +10,11 @@ import SubBrand from "./SubBrand";
 
 const SubBrands = (props) => {
   console.log(props.brands);
+
+  function passPopupData(brand) {
+    props.openPopup(brand);
+  }
+
   return (
     <section
       className={`${styles["subbrands-container"]} relative h-[450px] w-full bg-transparent mt-[-232px] mx-auto`}
@@ -34,7 +39,7 @@ const SubBrands = (props) => {
                 <SubBrand
                   key={brand.title}
                   title={brand.title}
-                  content={brand.content}
+                  description={brand.subBrandFields.description}
                   tags={
                     props.lang === "ar"
                       ? brand.tags.nodes[0].name
@@ -42,6 +47,9 @@ const SubBrands = (props) => {
                   }
                   gradient={brand.subBrandFields.gradient}
                   logo={brand.subBrandFields.logo}
+                  logoColored={brand.subBrandFields.logoColored}
+                  websiteUrl={brand.subBrandFields.websiteUrl}
+                  popupData={passPopupData}
                 />
               ))}
           </div>

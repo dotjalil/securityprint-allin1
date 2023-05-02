@@ -6,7 +6,7 @@ import smsLogo from "../public/social/sms.svg";
 import instaLogo from "../public/social/insta.svg";
 import waLogo from "../public/social/whatsapp.svg";
 
-const Footer = () => {
+const Footer = (props) => {
   return (
     <footer className="flex flex-col en-text" dir="ltr">
       <div className="container" style={{ margin: "0 auto" }}>
@@ -19,7 +19,7 @@ const Footer = () => {
             </p>
           </div>
           <div className="flex flex-row gap-3 items-center">
-            <Link href="https://google.com" target="_blank">
+            <Link href="mailto:contact@security.com.sa" target="_blank">
               <Image
                 src={smsLogo}
                 alt="facebook page link"
@@ -27,7 +27,7 @@ const Footer = () => {
                 height={36}
               />
             </Link>
-            <Link href="https://google.com" target="_blank">
+            <Link href={props.whatsappUrl} target="_blank">
               <Image
                 src={waLogo}
                 alt="facebook page link"
@@ -35,7 +35,10 @@ const Footer = () => {
                 height={36}
               />
             </Link>
-            <Link href="https://google.com" target="_blank">
+            <Link
+              href="https://www.facebook.com/profile.php?id=100083441167855"
+              target="_blank"
+            >
               <Image
                 src={fbLogo}
                 alt="facebook page link"
@@ -43,7 +46,7 @@ const Footer = () => {
                 height={36}
               />
             </Link>
-            <Link href="https://google.com" target="_blank">
+            <Link href="https://www.instagram.com/secprint.sa/" target="_blank">
               <Image
                 src={instaLogo}
                 alt="facebook page link"
@@ -51,7 +54,7 @@ const Footer = () => {
                 height={36}
               />
             </Link>
-            <Link href="https://google.com" target="_blank">
+            <Link href="https://twitter.com/secprint.sa" target="_blank">
               <Image
                 src={twitterLogo}
                 alt="facebook page link"

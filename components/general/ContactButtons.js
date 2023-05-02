@@ -1,6 +1,18 @@
+import Link from "next/link";
+
 const ContactButtons = (props) => {
+  function setWhatsappHref() {
+    return encodeURI(
+      `https://wa.me/${props.whatsappNumber}?backup=true&text=مرحبًا،+السلام+عليكم+ورحمة+الله+وبركاته`
+    );
+  }
+
   return (
-    <div className="flex justify-center items-start gap-[27px] mt-[28px]">
+    <div
+      className={`flex items-start gap-[27px] mt-[28px] ${
+        props.position === "right" ? "justify-start" : "justify-center"
+      }`}
+    >
       <div
         className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 w-[185px] gap-2.5 p-3 rounded-xl"
         style={{
@@ -8,7 +20,10 @@ const ContactButtons = (props) => {
             "linear-gradient(186.77deg, #45cb85 -201.23%, #268855 136.97%)",
         }}
       >
-        <div className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-1.5">
+        <Link
+          href={props.whatsappUrl}
+          className="flex justify-center items-center flex-grow-0 flex-shrink-0 relative gap-1.5"
+        >
           <p className="flex-grow-0 flex-shrink-0 text-lg font-light text-left uppercase text-white">
             {props.whatsappText}
           </p>
@@ -31,7 +46,7 @@ const ContactButtons = (props) => {
               fill="white"
             />
           </svg>
-        </div>
+        </Link>
       </div>
       <div
         className="flex flex-col justify-center items-center flex-grow-0 flex-shrink-0 w-[185px] gap-2.5 p-3 rounded-xl"
