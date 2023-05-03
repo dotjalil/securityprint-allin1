@@ -5,17 +5,16 @@ import logo from "../public/tmp/logo-popup.svg";
 import globalIcon from "../public/global.svg";
 
 const Modal = (props) => {
-  console.log("modal data: ", props.brand);
   function closeModalHandler() {
     props.closeHandler();
   }
   return (
     <div
-      className="main-modal fixed w-full h-100 inset-0 z-50 overflow-hidden flex justify-center items-center animated fadeIn faster"
+      className="main-modal fixed w-full h-90 inset-0 z-50 overflow-scroll flex justify-center items-start md:items-center animated fadeIn faster py-5 md:py-0"
       style={{ background: "rgba(0,0,0,.7)" }}
     >
       <div className="border border-teal-500 shadow-lg modal-container bg-white w-11/12 md:w-[90%] mx-auto rounded-2xl shadow-lg z-50 overflow-y-auto">
-        <div className="modal-content py-[60px] px-[48px]">
+        <div className="modal-content py-[48px] px-[24px] md:py-[60px] md:px-[48px]">
           {/* <!--Header--> */}
           <div className="flex justify-between items-center pb-3">
             <p className="text-2xl font-bold"></p>
@@ -35,9 +34,9 @@ const Modal = (props) => {
             </div>
           </div>
           {/* <!--Body--> */}
-          <div className="my-5 flex justify-between">
+          <div className="my-0 md:my-5 flex justify-between flex-col-reverse md:flex-row">
             <div className="max-w-[525px]">
-              <div className="flex gap-4 mb-4">
+              <div className="flex gap-4 mb-4 justify-center md:justify-start md:mx-0 mt-4">
                 {props.brand.tags.map((tag) => (
                   <span
                     key={tag}
@@ -47,19 +46,27 @@ const Modal = (props) => {
                   </span>
                 ))}
               </div>
-              <h3 className="text-[28px] font-bold mb-[24px]">
+              <h3 className="text-[28px] font-bold mb-[24px] text-center md:text-start">
                 {props.brand.title}
               </h3>
-              <p>{props.brand.description}</p>
+              <p className=" text-center md:text-start">
+                {props.brand.description}
+              </p>
               <ContactButtons
                 whatsappUrl="https://google.com"
-                phoneText="اتصل بنا"
-                whatsappText="راسلنا"
+                phoneText={props.lang === "ar" ? "اتصل بنا" : "Call Us"}
+                whatsappText={props.lang === "ar" ? "راسلنا" : "Chat with Us"}
                 position="right"
               />
             </div>
             <div>
-              <Image src={logo} width={249} height={249} alt="logo" />
+              <Image
+                className="mx-auto md:mx-0"
+                src={logo}
+                width={249}
+                height={249}
+                alt="logo"
+              />
               <Link
                 href={props.brand.websiteUrl}
                 target="_blank"
@@ -71,7 +78,7 @@ const Modal = (props) => {
                 }}
               >
                 <Image src={globalIcon} height={24} width={24} alt="icon" />
-                زور موقعنا
+                {props.lang === "ar" ? "زور موقعنا" : "Visit Site"}
               </Link>
             </div>
           </div>

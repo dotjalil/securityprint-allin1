@@ -9,7 +9,7 @@ const SubBrand = (props) => {
       description: props.description,
       whatsappUrl: "https://google.com",
       phoneNumber: "0000000",
-      tags: ["one", "two"],
+      tags: props.tags,
       websiteUrl: props.websiteUrl,
     };
 
@@ -18,20 +18,21 @@ const SubBrand = (props) => {
 
   return (
     <button
-      className={`${styles["subbrand-item"]} flex flex-col h-full gap-[25px] items-center justify-center p-6 rounded-xl`}
+      className={`${styles["subbrand-item"]} flex flex-col gap-[25px] items-center justify-center p-6 rounded-xl w-full lg:h-[195px] xl:h-[253px] md:w-[225px]`}
       style={{
-        marginTop: 48,
-        height: 253,
         background: props.gradient,
       }}
-      href="#"
       onClick={handleOpenPopup}
     >
       <div className="inline-flex items-center justify-end px-4 py-2 bg-white bg-opacity-10 rounded-full">
-        <p className="text-xs text-white uppercase">{props.tags}</p>
+        {props.tags.map((tag) => (
+          <p key={tag} className="text-xs text-white uppercase">
+            {tag}
+          </p>
+        ))}
       </div>
       <Image
-        className="mt-10px"
+        className="mt-10px lg:w-[135px]"
         alt="sub"
         src={props.logo.mediaItemUrl}
         width={185}
@@ -42,7 +43,9 @@ const SubBrand = (props) => {
       <div
         className={`${styles["learn-more"]} flex flex-col items-center justify-center px-6 py-3 bg-white rounded-xl h-[45px]`}
       >
-        <p className="text-lg font-light uppercase">اعرف اكثر</p>
+        <p className="text-base font-light">
+          {props.lang === "ar" ? "اعرف اكثر" : "Learn More"}
+        </p>
       </div>
     </button>
   );

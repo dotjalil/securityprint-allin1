@@ -10,9 +10,9 @@ const Footer = (props) => {
   return (
     <footer className="flex flex-col en-text" dir="ltr">
       <div className="container" style={{ margin: "0 auto" }}>
-        <div className="flex justify-between content-center py-6">
+        <div className="flex justify-between content-center py-6 flex-col-reverse gap-8 sm:flex-row items-center">
           <div>
-            <p className="uppercase text-left">
+            <p className="uppercase text-center sm:text-left">
               Commercial Registration Number: 2251498988 <br />
               Date: 09/17/1442 AH <br />
               Tax Number: 310925236400003
@@ -67,14 +67,14 @@ const Footer = (props) => {
       </div>
       <div className="bg-[#F8F8F8]">
         <div className="container" style={{ margin: "0 auto" }}>
-          <div className="flex justify-between content-center py-5 bg-[#F8F8F8]">
-            <p>
+          <div className="flex flex-col-reverse gap-3 sm:flex-row justify-between content-center py-5 bg-[#F8F8F8]">
+            <p className="text-center sm:text-start">
               <Link href="/" className="text-[#0147BC]">
                 SECURITYPRNT
               </Link>{" "}
               2023 ALL RIGHT RESERVED
             </p>
-            <div className="flex gap-6">
+            <div className="flex gap-6 justify-evenly">
               <Link href="/" className="text-[#032E47]">
                 PRIVECY POLICY
               </Link>

@@ -22,7 +22,7 @@ const Initiatives = (props) => {
         {props.subtitle}
       </p>
 
-      <div className="container mx-auto mt-16 grid grid-cols-3 gap-5">
+      <div className="container mx-auto mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
         {props.initiatives.map((initiative) => (
           <div
             key={initiative.title}

@@ -16,7 +16,6 @@ import Initiatives from "../components/Initiatives";
 import Partners from "../components/Partners";
 import Footer from "../components/Footer";
 import Modal from "../components/Modal";
-import whatsappUrl from "../lib/whatsapp-url";
 
 Router.events.on("routeChangeStart", (url) => {
   nprogress.start();
@@ -56,7 +55,6 @@ export default function Home({ page }) {
   }, []);
 
   function handleOpenPopup(brand) {
-    console.log("brand: ", brand);
     setModalData(brand);
     setShowBrandModal(true);
   }
@@ -129,7 +127,11 @@ export default function Home({ page }) {
       />
       {whatsappUrl && <Footer whatsappUrl={whatsappUrl} />}
       {showBrandModal && modalData && (
-        <Modal closeHandler={closeBrandModalHandler} brand={modalData} />
+        <Modal
+          closeHandler={closeBrandModalHandler}
+          brand={modalData}
+          lang={page.translation.language.slug}
+        />
       )}
     </div>
   );
@@ -255,7 +257,6 @@ export async function getStaticProps({ locale }) {
       uri: "/",
     },
   });
-  console.log("data is: ", data);
   const page = {
     ...data?.data.pageBy,
     subBrands: [...data?.data.subBrands.nodes],
