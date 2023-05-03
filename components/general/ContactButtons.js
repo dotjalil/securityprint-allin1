@@ -21,7 +21,7 @@ const ContactButtons = (props) => {
             "linear-gradient(186.77deg, #45cb85 -201.23%, #268855 136.97%)",
         }}
       >
-        <span className="text-lg">{props.whatsappText}</span>
+        <span className="text-base">{props.whatsappText}</span>
         <svg
           width={24}
           height={24}
@@ -50,7 +50,7 @@ const ContactButtons = (props) => {
         }}
         href="/"
       >
-        <span className="text-lg">{props.phoneText}</span>
+        <span className="text-base">{props.phoneText}</span>
         <svg
           width={25}
           height={24}
