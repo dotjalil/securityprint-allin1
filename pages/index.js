@@ -34,7 +34,6 @@ export default function Home({ page }) {
   // console.log("page is: ", page);
 
   useEffect(() => {
-    console.log("effect started");
     async function getWA() {
       const response = await fetch(
         "https://security-social-helpers.herokuapp.com/getShift",
@@ -97,7 +96,13 @@ export default function Home({ page }) {
       <SubBrands
         title={page.translation.homePageFields.subBrandsTitle}
         description={page.translation.homePageFields.subBrandsSection}
-        brands={page.subBrands.reverse()}
+        brands={page.subBrands.sort(function sortBrands(brandA, brandB) {
+          if (brandB.databaseId < brandA.databaseId) {
+            return 1;
+          } else {
+            return -1;
+          }
+        })}
         lang={page.translation.language.slug}
         openPopup={handleOpenPopup}
       />
@@ -219,6 +224,7 @@ export async function getStaticProps({ locale }) {
             }
             title
             excerpt
+            databaseId
           }
         }
         initiatives(where: { language: $language_filter_enum }) {
@@ -269,47 +275,4 @@ export async function getStaticProps({ locale }) {
       page,
     },
   };
-}
-
-{
-  /* displaying posts on the home page */
-  /* <main className={styles.main}>
-        <h1 className={styles.title}>{title}</h1>
-
-        <p className={styles.description}>{description}</p>
-
-        <ul className={styles.grid}>
-          {posts &&
-            posts.length > 0 &&
-            posts.map((post) => {
-              console.log(post);
-              return (
-                <li key={post.slug} className={styles.card}>
-                  <Link href={post.path}>
-                    <a>
-                      <h3
-                        dangerouslySetInnerHTML={{
-                          __html: post.title,
-                        }}
-                      />
-                      <div
-                        className={styles.excerpt}
-                        dangerouslySetInnerHTML={{
-                          __html: post.excerpt,
-                        }}
-                      />
-                    </a>
-                  </Link>
-                </li>
-              );
-            })}
-
-          {!posts ||
-            (posts.length === 0 && (
-              <li>
-                <p>Oops, no posts found!</p>
-              </li>
-            ))}
-        </ul>
-      </main> */
 }

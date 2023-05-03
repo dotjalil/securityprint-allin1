@@ -35,7 +35,7 @@ const PhotoSection = (props) => {
             {props.description}
           </p>
         </div>
-        <div className="order-first">
+        <div className="order-first sm:order-none">
           <Image
             src={props.mainPhoto.mediaItemUrl}
             alt=""

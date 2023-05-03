@@ -16,7 +16,7 @@ const VideoIntro = (props) => {
             {props.description}
           </p>
         </div>
-        <div className="order-first">
+        <div className="order-first sm:order-none">
           <YoutubeEmbed videoId={getVideoId(props.url)} />
         </div>
       </div>
