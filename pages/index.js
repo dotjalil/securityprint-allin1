@@ -16,6 +16,7 @@ import Initiatives from "../components/Initiatives";
 import Partners from "../components/Partners";
 import Footer from "../components/Footer";
 import Modal from "../components/Modal";
+import Contact from "../components/Contact";
 
 Router.events.on("routeChangeStart", (url) => {
   nprogress.start();
@@ -125,6 +126,10 @@ export default function Home({ page }) {
         subtitle={page.translation.homePageFields.initiativesSectionSubtitle}
         initiatives={page.initiatives}
       />
+      <Contact
+        fields={{ ...page.translation.homePageFields.contactSection }}
+        lang={page.translation.language.slug}
+      />
       <Partners
         title={page.translation.homePageFields.partnersSectionTitle}
         subtitle={page.translation.homePageFields.partnersSectionSubtitle}
@@ -189,6 +194,16 @@ export async function getStaticProps({ locale }) {
               videoSectionDescription
               videoSectionTitle
               videoSectionUrl
+              contactSection {
+                address
+                contactEmail
+                contactSectionContent
+                contactSectionSubtitle
+                contactSectionTitle
+                fieldGroupName
+                phoneNumber
+                whatsappNumber
+              }
             }
           }
         }
