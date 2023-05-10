@@ -22,6 +22,9 @@ function MyApp({ Component, pageProps }) {
         html {
           font-family: ${alexandria.style.fontFamily};
         }
+        img.white path {
+          fill: white;
+        }
       `}</style>
       <Component {...pageProps} />
     </>

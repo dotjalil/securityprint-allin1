@@ -5,9 +5,48 @@ import waIcon from "../public/icons/whatsapp.svg";
 import phoneIcon from "../public/icons/call.svg";
 import emailIcon from "../public/icons/email.svg";
 import locationIcon from "../public/icons/location.svg";
+import spinner from "../public/icons/90-ring.svg";
 import styles from "./Contact.module.css";
+import { sendContactForm } from "../lib/sendContactForm";
+import { useState } from "react";
+
+const initFormData = { name: "", phone: "", email: "", message: "" };
+
+const initFormState = { isLoading: false, error: "", formData: initFormData };
 
 const Contact = (props) => {
+  const [formState, setFormState] = useState(initFormState);
+  const { isLoading, error, formData } = formState;
+
+  function handleChange({ target }) {
+    setFormState((prev) => ({
+      ...prev,
+      formData: {
+        ...prev.formData,
+        [target.name]: target.value,
+      },
+    }));
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setFormState((prev) => ({
+      ...prev,
+      isLoading: true,
+    }));
+
+    try {
+      await sendContactForm(formData);
+      setFormState(initFormState);
+    } catch (error) {
+      setFormState((prev) => ({
+        ...prev,
+        isLoading: false,
+        error: error.message,
+      }));
+    }
+  }
+
   const contactFormFields = {
     title: props.lang === "ar" ? "توصل معنا الان" : "Send us now",
     email: props.lang === "ar" ? "البريد الالكتروني" : "Email",
@@ -25,7 +64,7 @@ const Contact = (props) => {
     email: props.fields.contactEmail,
     location: props.fields.address,
   };
-  console.log(props.lang);
+
   return (
     // <section className="bg-[#F4F4F9] mt-[-218px] pt-[278px]">
     <section className="py-[120px] text-center sm:text-start">
@@ -58,7 +97,7 @@ const Contact = (props) => {
                   : "our 24/7 hot line "}
               </span>
             </p>
-            <h2 className="text-3xl mb-6">
+            <h2 className="text-3xl mb-6 text-start">
               {props.lang === "ar"
                 ? "يقدم خبراء Security Print و CX وخبراء الأمن السيبراني حلولاً متخصصة في مكافحة الابتزاز."
                 : "we we provide the best services in the Kingdom"}
@@ -103,7 +142,8 @@ const Contact = (props) => {
             </div>
           </div>
         </div>
-        <div className="order-first sm:order-none">
+        <div className="">
+          {error && <p>{error}</p>}
           <form
             style={{
               background:
@@ -115,22 +155,34 @@ const Contact = (props) => {
             <input
               className="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
               type="text"
+              name="name"
+              value={formData.name}
               placeholder={contactFormFields.fullName}
+              onChange={handleChange}
             />
 
             <input
               className="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
               type="text"
+              name="phone"
+              value={formData.phone}
               placeholder={contactFormFields.phone}
+              onChange={handleChange}
             />
             <input
               className="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
               type="email"
+              name="email"
+              value={formData.email}
               placeholder={contactFormFields.email}
+              onChange={handleChange}
             />
             <textarea
               className="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
               placeholder={contactFormFields.message}
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
             />
             <button
               type="submit"
@@ -139,8 +191,36 @@ const Contact = (props) => {
                 background:
                   "linear-gradient(90deg, #29295B 0.03%, #029D96 99.98%)",
               }}
+              onClick={handleSubmit}
+              disabled={isLoading}
             >
-              {contactFormFields.send}
+              {isLoading && (
+                <svg
+                  className="mx-auto"
+                  width={24}
+                  height={24}
+                  stroke="#fff"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <style
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        ".spinner_V8m1{transform-origin:center;animation:spinner_zKoa 2s linear infinite}.spinner_V8m1 circle{stroke-linecap:round;animation:spinner_YpZS 1.5s ease-in-out infinite}@keyframes spinner_zKoa{100%{transform:rotate(360deg)}}@keyframes spinner_YpZS{0%{stroke-dasharray:0 150;stroke-dashoffset:0}47.5%{stroke-dasharray:42 150;stroke-dashoffset:-16}95%,100%{stroke-dasharray:42 150;stroke-dashoffset:-59}}",
+                    }}
+                  />
+                  <g className="spinner_V8m1">
+                    <circle
+                      cx={12}
+                      cy={12}
+                      r="9.5"
+                      fill="none"
+                      strokeWidth={3}
+                    />
+                  </g>
+                </svg>
+              )}
+              {!isLoading && <>{contactFormFields.send}</>}
             </button>
           </form>
         </div>
