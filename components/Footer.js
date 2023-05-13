@@ -75,10 +75,10 @@ const Footer = (props) => {
               2023 ALL RIGHT RESERVED
             </p>
             <div className="flex gap-6 justify-evenly">
-              <Link href="/" className="text-[#032E47]">
+              <Link href="/privacy-policy" className="text-[#032E47]">
                 PRIVECY POLICY
               </Link>
-              <Link href="/" className="text-[#032E47]">
+              <Link href="/terms-conditions" className="text-[#032E47]">
                 TERMS & CONDITIONS{" "}
               </Link>
             </div>

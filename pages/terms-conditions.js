@@ -27,7 +27,7 @@ Router.events.on("routeChangeComplete", (url) => {
   nprogress.done(false);
 });
 
-export default function PrivacyPolicy({ page }) {
+export default function TermsAndConditions({ page }) {
   const [whatsappUrl, setWhatsappUrl] = useState(null);
   const [showBrandModal, setShowBrandModal] = useState(false);
   const [modalData, setModalData] = useState(null);
@@ -134,7 +134,7 @@ export async function getStaticProps({ locale }) {
     `,
     variables: {
       language,
-      uri: "/privacy-policy",
+      uri: "/terms-and-conditions",
     },
   });
   const page = {
