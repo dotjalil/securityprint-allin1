@@ -1,6 +1,4 @@
-import HeroImage from "../public/hero.png";
 import styles from "./Hero.module.css";
-import { Children } from "react";
 
 const Hero = (props) => {
   return (

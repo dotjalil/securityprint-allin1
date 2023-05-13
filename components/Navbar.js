@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "../components/Navbar.module.css";
-import LogoAr from "../public/logo-ar.svg";
-import LogoEn from "../public/logo-en.svg";
+import LogoAr from "../public/logo.svg";
+import LogoEn from "../public/logo.svg";
 import Image from "next/image";
 import Global from "../public/global.svg";
 
-export default function Navbar() {
+export default function Navbar(props) {
   const { locale: activeLocale, locales, asPath } = useRouter();
 
   const availableLocales = locales.filter((locale) => locale !== activeLocale);
@@ -16,6 +16,7 @@ export default function Navbar() {
       <Link href="/">
         <Image
           alt="Logo arabic"
+          height={60}
           src={activeLocale === "ar" ? LogoAr : LogoEn}
         />
       </Link>
@@ -28,7 +29,9 @@ export default function Navbar() {
             <Link
               href={asPath}
               locale={locale}
-              className={`flex gap-1 ${activeLocale === "ar" ? "" : "ar-text"}`}
+              className={`flex gap-1 ${
+                props.theme === "light" ? "text-black" : ""
+              }`}
             >
               <Image alt="toggle language" src={Global} />
               {locale === "en" ? "ENGLISH" : "العربية"}{" "}
