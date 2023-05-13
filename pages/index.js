@@ -126,10 +126,13 @@ export default function Home({ page }) {
         subtitle={page.translation.homePageFields.initiativesSectionSubtitle}
         initiatives={page.initiatives}
       />
-      <Contact
-        fields={{ ...page.translation.homePageFields.contactSection }}
-        lang={page.translation.language.slug}
-      />
+      {whatsappUrl && (
+        <Contact
+          fields={{ ...page.translation.homePageFields.contactSection }}
+          lang={page.translation.language.slug}
+          whatsapp={whatsappUrl}
+        />
+      )}
       <Partners
         title={page.translation.homePageFields.partnersSectionTitle}
         subtitle={page.translation.homePageFields.partnersSectionSubtitle}

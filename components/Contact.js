@@ -110,19 +110,28 @@ const Contact = (props) => {
             <div className="mt-4">
               <ul>
                 <li className="mb-2">
-                  <Link href="#" className="flex items-center gap-2">
+                  <Link
+                    href={props.whatsapp}
+                    className="flex items-center gap-2"
+                  >
                     <Image alt="icon" src={waIcon} width={36} height={36} />
-                    {contactSection.whatsapp}
+                    {props.whatsapp.split("me/")[1].split("?")[0]}
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link href="#" className="flex items-center gap-2">
+                  <Link
+                    href={`tel:${contactSection.phone}`}
+                    className="flex items-center gap-2"
+                  >
                     <Image alt="icon" src={phoneIcon} width={36} height={36} />
                     {contactSection.phone}
                   </Link>
                 </li>
                 <li className="mb-2">
-                  <Link href="#" className="flex items-center gap-2">
+                  <Link
+                    href={`mailto:${contactSection.email}`}
+                    className="flex items-center gap-2"
+                  >
                     <Image alt="icon" src={emailIcon} width={36} height={36} />
                     {contactSection.email}
                   </Link>
