@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "../components/Navbar.module.css";
-import LogoAr from "../public/logo.svg";
-import LogoEn from "../public/logo.svg";
+import LogoAr from "../public/logo-white.svg";
+import LogoEn from "../public/logo-white.svg";
 import Image from "next/image";
 import Global from "../public/global.svg";
 
@@ -20,7 +20,8 @@ export default function Navbar(props) {
           src={activeLocale === "ar" ? LogoAr : LogoEn}
         />
       </Link>
-      {availableLocales.map((locale) => {
+      {/* Switch language button. Uncomment when English content is ready. */}
+      {/* {availableLocales.map((locale) => {
         return (
           <p
             className="flex-grow-0 flex-shrink-0 text-base font-light text-left text-[#f4f4f9]"
@@ -38,7 +39,7 @@ export default function Navbar(props) {
             </Link>
           </p>
         );
-      })}
+      })} */}
     </div>
 
     // <div className="container">

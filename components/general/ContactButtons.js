@@ -9,7 +9,7 @@ const ContactButtons = (props) => {
 
   return (
     <div
-      className={`flex items-start gap-[27px] mt-[28px] flex-col sm:flex-row ${
+      className={`flex items-start gap-[27px] mt-[40px] flex-col sm:flex-row ${
         props.position === "right" ? "justify-start" : "justify-center"
       }`}
     >

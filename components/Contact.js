@@ -99,7 +99,7 @@ const Contact = (props) => {
             </p>
             <h2 className="text-3xl mb-6 text-start">
               {props.lang === "ar"
-                ? "يقدم خبراء Security Print و CX وخبراء الأمن السيبراني حلولاً متخصصة في مكافحة الابتزاز."
+                ? "نقدم الحلول الإلكترونية المبتكرة على مدار ٢٤ ساعة !"
                 : "we we provide the best services in the Kingdom"}
             </h2>
             {/* <p>
