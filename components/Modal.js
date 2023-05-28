@@ -62,7 +62,7 @@ const Modal = (props) => {
             <div>
               <Image
                 className="mx-auto md:mx-0"
-                src={logo}
+                src={props.brand.logo}
                 width={249}
                 height={249}
                 alt="logo"
