@@ -46,6 +46,10 @@ const PhotoSection = (props) => {
               alt=""
               width={666}
               height={444}
+              style={{
+                borderRadius: "16px",
+                filter: "drop-shadow(0px 10px 16px rgba(3, 46, 71, 0.15))",
+              }}
             />
           </Link>
         </div>
