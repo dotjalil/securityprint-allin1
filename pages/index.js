@@ -37,7 +37,7 @@ export default function Home({ page }) {
   useEffect(() => {
     async function getWA() {
       const response = await fetch(
-        "https://security-social-helpers.herokuapp.com/getShift",
+        "https://secprintapi.onrender.com/getShift",
         {
           method: "GET",
           mode: "cors",
