@@ -1,7 +1,6 @@
 import Link from "next/link";
 import ContactButtons from "./general/ContactButtons";
 import Image from "next/image";
-import logo from "../public/tmp/logo-popup.svg";
 import globalIcon from "../public/global.svg";
 
 const Modal = (props) => {

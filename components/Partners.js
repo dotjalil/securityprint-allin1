@@ -1,6 +1,7 @@
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Image from "next/image";
+import Link from "next/link";
 
 const responsive = {
   desktop: {
@@ -32,7 +33,12 @@ const Partners = (props) => {
           marginBottom: 24,
         }}
       >
-        {props.title}
+        <Link
+          href="https://twitter.com/secprint_sa/status/1624132665640161282?s=46&t=Luf1v4YHcOxCCSN8bdWudg"
+          target="_blank"
+        >
+          {props.title}
+        </Link>
       </h2>
       <p
         className="text-base leading-relaxed text-center text-gray-900"
