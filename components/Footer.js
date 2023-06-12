@@ -54,7 +54,7 @@ const Footer = (props) => {
                 height={36}
               />
             </Link>
-            <Link href="https://twitter.com/secprint.sa" target="_blank">
+            <Link href="https://twitter.com/secprint_sa" target="_blank">
               <Image
                 src={twitterLogo}
                 alt="facebook page link"
