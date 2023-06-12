@@ -90,6 +90,9 @@ export default function Home({ page }) {
             whatsappText={page.translation.homePageFields.whatsappButtonText}
             whatsappUrl={whatsappUrl}
             phoneText={page.translation.homePageFields.phoneButtonText}
+            phoneNumber={
+              page.translation.homePageFields.contactSection.phoneNumber
+            }
           />
         )}
       </Hero>

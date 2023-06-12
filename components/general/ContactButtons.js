@@ -48,7 +48,7 @@ const ContactButtons = (props) => {
           background:
             "linear-gradient(39.01deg, #0047bb 27.11%, #4ab4fb 105.68%)",
         }}
-        href="/"
+        href={`tel:${props.phoneNumber}`}
       >
         <span className="text-base">{props.phoneText}</span>
         <svg
