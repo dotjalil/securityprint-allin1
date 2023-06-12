@@ -124,7 +124,9 @@ const Contact = (props) => {
                     className="flex items-center gap-2"
                   >
                     <Image alt="icon" src={phoneIcon} width={36} height={36} />
-                    {contactSection.phone}
+                    <span style={{ direction: "ltr" }}>
+                      {contactSection.phone}
+                    </span>
                   </Link>
                 </li>
                 <li className="mb-2">
