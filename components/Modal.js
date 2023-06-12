@@ -51,12 +51,13 @@ const Modal = (props) => {
               <p className=" text-center md:text-start">
                 {props.brand.description}
               </p>
-              <ContactButtons
+              {/* Remove Contact Buttons */}
+              {/* <ContactButtons
                 whatsappUrl="https://google.com"
                 phoneText={props.lang === "ar" ? "اتصل بنا" : "Call Us"}
                 whatsappText={props.lang === "ar" ? "راسلنا" : "Chat with Us"}
                 position="right"
-              />
+              /> */}
             </div>
             <div>
               <Image
@@ -66,7 +67,8 @@ const Modal = (props) => {
                 height={249}
                 alt="logo"
               />
-              <Link
+              {/* Remove Visit Website Link */}
+              {/* <Link
                 href={props.brand.websiteUrl}
                 target="_blank"
                 className="flex text-white p-3 rounded-xl gap-2 mx-auto justify-center mt-[28px]"
@@ -78,7 +80,7 @@ const Modal = (props) => {
               >
                 <Image src={globalIcon} height={24} width={24} alt="icon" />
                 {props.lang === "ar" ? "زور موقعنا" : "Visit Site"}
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>
