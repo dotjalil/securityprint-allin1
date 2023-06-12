@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const PhotoSection = (props) => {
   return (
@@ -36,12 +37,17 @@ const PhotoSection = (props) => {
           </p>
         </div>
         <div className="order-first sm:order-none">
-          <Image
-            src={props.mainPhoto.mediaItemUrl}
-            alt=""
-            width={666}
-            height={444}
-          />
+          <Link
+            href="https://twitter.com/secprint_sa/status/1624132665640161282?s=46&t=Luf1v4YHcOxCCSN8bdWudg"
+            target="_blank"
+          >
+            <Image
+              src={props.mainPhoto.mediaItemUrl}
+              alt=""
+              width={666}
+              height={444}
+            />
+          </Link>
         </div>
       </div>
     </section>

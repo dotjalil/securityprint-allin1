@@ -40,8 +40,14 @@ const Initiatives = (props) => {
                 {`#${initiative.tags.nodes[0].name.split(" ").join("_")}`}
               </p>
               <p className="text-2xl capitalize">{initiative.title}</p>
-              <p className="text-base leading-relaxed text-gray-900">
-                {initiative.content.replace(/(<([^>]+)>)/gi, "")}
+              <p
+                className="text-base leading-relaxed text-gray-900"
+                dangerouslySetInnerHTML={{
+                  __html: initiative.content.replace(/(<([^>]+)>)/gi, ""),
+                }}
+              >
+                {/* Another way of rendering the content, this will have a problem with special characters. */}
+                {/* {initiative.content.replace(/(<([^>]+)>)/gi, "")} */}
               </p>
             </div>
           </div>
