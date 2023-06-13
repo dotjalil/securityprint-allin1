@@ -47,7 +47,7 @@ export default function Home({ page }) {
       const data = await response.json();
       setWhatsappUrl(() =>
         encodeURI(
-          `https://wa.me/${data.whatsapp}?backup=true&text=مرحبًا،+السلام+عليكم+ورحمة+الله+وبركاته`
+          `https://api.whatsapp.com/send?phone=${data.whatsapp}&text=اهــلاً+وسهــلاً`
         )
       );
     }
@@ -66,7 +66,7 @@ export default function Home({ page }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{page.title}</title>
+        <title>{page.translation.title}</title>
         <meta name="description" content={page.description} />
         <link rel="icon" href="/favicon.svg" />
         <link

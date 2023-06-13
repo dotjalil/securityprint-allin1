@@ -51,7 +51,7 @@ const Contact = (props) => {
     title: props.lang === "ar" ? "توصل معنا الان" : "Send us now",
     email: props.lang === "ar" ? "البريد الالكتروني" : "Email",
     phone: props.lang === "ar" ? "رقم الجوال" : "Phone Number",
-    message: props.lang === "ar" ? "الرسالة/الشكوى" : "Message/complain",
+    message: props.lang === "ar" ? "أكتب رسالتك" : "Message/complain",
     fullName: props.lang === "ar" ? "الاسم الكامل" : "Full Name",
     send: props.lang === "ar" ? "ارسال" : "Send",
   };
@@ -99,7 +99,7 @@ const Contact = (props) => {
             </p>
             <h2 className="text-3xl mb-6 text-start">
               {props.lang === "ar"
-                ? "نقدم الحلول الإلكترونية المبتكرة على مدار ٢٤ ساعة !"
+                ? "نقدم الحلول الإلكترونية الإحترافية على مدار ٢٤ ساعة !"
                 : "we we provide the best services in the Kingdom"}
             </h2>
             {/* <p>
@@ -115,7 +115,7 @@ const Contact = (props) => {
                     className="flex items-center gap-2"
                   >
                     <Image alt="icon" src={waIcon} width={36} height={36} />
-                    {props.whatsapp.split("me/")[1].split("?")[0]}
+                    {props.whatsapp.split("phone=")[1].split("&")[0]}
                   </Link>
                 </li>
                 <li className="mb-2">

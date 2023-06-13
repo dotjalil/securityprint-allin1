@@ -39,7 +39,7 @@ export default function TermsAndConditions({ page }) {
   useEffect(() => {
     async function getWA() {
       const response = await fetch(
-        "https://security-social-helpers.herokuapp.com/getShift",
+        "https://secprintapi.onrender.com/getShift",
         {
           method: "GET",
           mode: "cors",
@@ -49,7 +49,7 @@ export default function TermsAndConditions({ page }) {
       const data = await response.json();
       setWhatsappUrl(() =>
         encodeURI(
-          `https://wa.me/${data.whatsapp}?backup=true&text=مرحبًا،+السلام+عليكم+ورحمة+الله+وبركاته`
+          `https://api.whatsapp.com/send?phone=${data.whatsapp}&text=اهــلاً+وسهــلاً`
         )
       );
     }
