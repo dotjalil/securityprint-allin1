@@ -5,6 +5,7 @@ const CONTACT_MESSAGE_FIELDS = {
   phone: "Phone",
   email: "Email",
   message: "Message",
+  whatsapp: "WhatsApp",
 };
 
 const generateEmailContent = (data) => {
@@ -26,7 +27,12 @@ const generateEmailContent = (data) => {
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const data = req.body;
-    if (!data || !data.name || !data.phone || !data.email || !data.message) {
+    if (
+      !data ||
+      !data.name ||
+      (!data.phone && !data.email && !data.whatsapp) ||
+      !data.message
+    ) {
       return res.status(400).send({ message: "Bad request" });
     }
 

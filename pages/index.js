@@ -4,6 +4,7 @@ import Hero from "../components/Hero";
 import Navbar from "../components/Navbar";
 import Intro from "../components/general/Intro";
 import ContactButtons from "../components/general/ContactButtons";
+import ContactByEmailButton from "../components/general/ContactByEmailButton";
 import PhotoSection from "../components/PhotoSection";
 import styles from "../styles/Home.module.css";
 import { gql } from "@apollo/client";
@@ -17,6 +18,7 @@ import Partners from "../components/Partners";
 import Footer from "../components/Footer";
 import Modal from "../components/Modal";
 import Contact from "../components/Contact";
+import RequestCallBack from "../components/RequestCallBack";
 
 Router.events.on("routeChangeStart", (url) => {
   nprogress.start();
@@ -85,7 +87,8 @@ export default function Home({ page }) {
       <Hero>
         <Navbar />
         <Intro introText={page.translation.homePageFields.heroSectionTitle} />
-        {whatsappUrl && (
+        <ContactByEmailButton toId="contact" />
+        {/* {whatsappUrl && (
           <ContactButtons
             whatsappText={page.translation.homePageFields.whatsappButtonText}
             whatsappUrl={whatsappUrl}
@@ -94,7 +97,7 @@ export default function Home({ page }) {
               page.translation.homePageFields.contactSection.phoneNumber
             }
           />
-        )}
+        )} */}
       </Hero>
 
       <SubBrands
@@ -129,13 +132,10 @@ export default function Home({ page }) {
         subtitle={page.translation.homePageFields.initiativesSectionSubtitle}
         initiatives={page.initiatives}
       />
-      {whatsappUrl && (
-        <Contact
-          fields={{ ...page.translation.homePageFields.contactSection }}
-          lang={page.translation.language.slug}
-          whatsapp={whatsappUrl}
-        />
-      )}
+      <RequestCallBack
+        fields={{ ...page.translation.homePageFields.requestCallBack }}
+        lang={page.translation.language.slug}
+      />
       <Partners
         title={page.translation.homePageFields.partnersSectionTitle}
         subtitle={page.translation.homePageFields.partnersSectionSubtitle}
@@ -209,6 +209,13 @@ export async function getStaticProps({ locale }) {
                 fieldGroupName
                 phoneNumber
                 whatsappNumber
+              }
+              requestCallBack {
+                subtitle
+                text1
+                text2
+                text3
+                title
               }
             }
           }

@@ -67,7 +67,7 @@ const Contact = (props) => {
 
   return (
     // <section className="bg-[#F4F4F9] mt-[-218px] pt-[278px]">
-    <section className="py-[120px] text-center sm:text-start">
+    <section id="contact" className="py-[120px] text-center sm:text-start">
       <h2
         className="text-4xl font-medium text-gray-800 uppercase text-center"
         style={{
