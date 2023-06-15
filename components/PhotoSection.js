@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ContactByEmailButton from "./general/ContactByEmailButton";
 
 const PhotoSection = (props) => {
   return (
@@ -35,6 +36,7 @@ const PhotoSection = (props) => {
             />
             {props.description}
           </p>
+          <ContactByEmailButton toId="contact" position="start" />
         </div>
         <div className="order-first sm:order-none">
           <Link

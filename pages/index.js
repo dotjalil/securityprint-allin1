@@ -19,6 +19,7 @@ import Footer from "../components/Footer";
 import Modal from "../components/Modal";
 import Contact from "../components/Contact";
 import RequestCallBack from "../components/RequestCallBack";
+import MobileFloatingContactButton from "../components/general/MobileFloatingContactButton";
 
 Router.events.on("routeChangeStart", (url) => {
   nprogress.start();
@@ -142,6 +143,9 @@ export default function Home({ page }) {
         partners={page.partners}
       />
       {whatsappUrl && <Footer whatsappUrl={whatsappUrl} />}
+      {/* This div adds extra space to the buttom of the page */}
+      <div className="md:hidden h-[60px]"></div>
+      <MobileFloatingContactButton toId="contact" />
       {showBrandModal && modalData && (
         <Modal
           closeHandler={closeBrandModalHandler}

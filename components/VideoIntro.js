@@ -1,3 +1,4 @@
+import ContactByEmailButton from "./general/ContactByEmailButton";
 import YoutubeEmbed from "./general/YouTubeEmbed/YoutubeEmbed";
 
 const VideoIntro = (props) => {
@@ -15,6 +16,7 @@ const VideoIntro = (props) => {
           <p className="text-base leading-relaxed text-gray-900">
             {props.description}
           </p>
+          <ContactByEmailButton toId="contact" position="start" />
         </div>
         <div className="order-first sm:order-none">
           <YoutubeEmbed videoId={getVideoId(props.url)} />
