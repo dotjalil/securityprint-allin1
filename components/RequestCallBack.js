@@ -178,7 +178,7 @@ const RequestCallBack = (props) => {
                 className="w-full px-3 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
               >
                 <option value="">اختر طريقة التواصل المناسبة</option>
-                <option value="phone">اتصال هاتفي</option>
+                <option value="phone">مكالمة هاتفية</option>
                 <option value="whatsapp">عن طريق الواتساب</option>
                 <option value="email">البريد الالكتروني</option>
               </select>
