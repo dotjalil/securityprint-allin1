@@ -35,27 +35,28 @@ export default function Home({ page }) {
   const [modalData, setModalData] = useState(null);
 
   // const { title, description } = page;
-  // console.log("page is: ", page);
+  console.log("page is: ", page);
 
-  useEffect(() => {
-    async function getWA() {
-      const response = await fetch(
-        "https://secprintapi.onrender.com/getShift",
-        {
-          method: "GET",
-          mode: "cors",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const data = await response.json();
-      setWhatsappUrl(() =>
-        encodeURI(
-          `https://api.whatsapp.com/send?phone=${data.whatsapp}&text=اهــلاً+وسهــلاً`
-        )
-      );
-    }
-    getWA();
-  }, []);
+  //// get WhatsApp Dynamically
+  // useEffect(() => {
+  //   async function getWA() {
+  //     const response = await fetch(
+  //       "https://secprintapi.onrender.com/getShift",
+  //       {
+  //         method: "GET",
+  //         mode: "cors",
+  //         headers: { "Content-Type": "application/json" },
+  //       }
+  //     );
+  //     const data = await response.json();
+  //     setWhatsappUrl(() =>
+  //       encodeURI(
+  //         `https://api.whatsapp.com/send?phone=${data.whatsapp}&text=اهــلاً+وسهــلاً`
+  //       )
+  //     );
+  //   }
+  //   getWA();
+  // }, []);
 
   function handleOpenPopup(brand) {
     setModalData(brand);
@@ -69,7 +70,7 @@ export default function Home({ page }) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>{page.translation.title}</title>
+        <title>{`${page.generalSettings.title} - ${page.generalSettings.description}`}</title>
         <meta name="description" content={page.description} />
         <link rel="icon" href="/favicon.svg" />
         <link
@@ -142,7 +143,7 @@ export default function Home({ page }) {
         subtitle={page.translation.homePageFields.partnersSectionSubtitle}
         partners={page.partners}
       />
-      {whatsappUrl && <Footer whatsappUrl={whatsappUrl} />}
+      <Footer whatsappUrl={whatsappUrl} />
       {/* This div adds extra space to the buttom of the page */}
       <div className="md:hidden h-[60px]"></div>
       <MobileFloatingContactButton toId="contact" />
@@ -300,6 +301,7 @@ export async function getStaticProps({ locale }) {
     subBrands: [...data?.data.subBrands.nodes],
     initiatives: [...data?.data.initiatives.nodes],
     partners: [...data?.data.partners.nodes],
+    generalSettings: { ...data?.data.generalSettings },
   };
 
   return {

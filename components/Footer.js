@@ -27,14 +27,14 @@ const Footer = (props) => {
                 height={36}
               />
             </Link>
-            <Link href={props.whatsappUrl} target="_blank">
+            {/* <Link href={props.whatsappUrl} target="_blank">
               <Image
                 src={waLogo}
                 alt="facebook page link"
                 width={36}
                 height={36}
               />
-            </Link>
+            </Link> */}
             <Link
               href="https://www.facebook.com/profile.php?id=100083441167855"
               target="_blank"
