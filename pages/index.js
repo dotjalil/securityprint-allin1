@@ -80,7 +80,10 @@ export default function Home({ page }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
-        <meta property="og:image" content="/favicon.svg" />
+        <meta
+          property="og:image"
+          content="https://security.com.sa/favicon.svg"
+        />
       </Head>
       <style jsx global>{`
         body {
