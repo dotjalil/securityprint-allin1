@@ -78,6 +78,10 @@ export default function PrivacyPolicy({ page }) {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        <meta
+          property="og:image"
+          content="https://security.com.sa/favicon.svg"
+        />
       </Head>
 
       <Header>
